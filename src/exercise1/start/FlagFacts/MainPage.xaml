@@ -3,8 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:FlagFacts"
              xmlns:eff="clr-namespace:FlagFacts.Effects"
+             xmlns:data="clr-namespace:FlagData;assembly=FlagData"
+             xmlns:cvt="clr-namespace:FlagFacts.Converters"
              x:Class="FlagFacts.MainPage"
              Title="Fun with Flags">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cvt:EmbeddedImageConverter x:Key="irConverter"
+                    ResolvingAssemblyType="{x:Type data:Flag}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Previous"
@@ -25,7 +35,9 @@
                 </OnPlatform>
             </StackLayout.Padding>
 
-            <Image x:Name="flagImage" HeightRequest="200" 
+            <Image  HeightRequest="200" 
+                   Source="{Binding ImageUrl, Mode=OneWay,
+                Converter={StaticResource irConverter}}"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     Aspect="AspectFit" />
